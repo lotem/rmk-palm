@@ -7,9 +7,6 @@ manufacturer = "TIS"
 chip = "nrf52840"
 
 [layout]
-# WARNING: Currently row2col/col2row is set in RMK's feature gate, row2col config here is valid ONLY when you're using cloud compilation.
-# Checkout doc here: https://rmk.rs/docs/user_guide/faq.html#my-matrix-is-row2col-the-matrix-doesn-t-work
-# row2col = true
 rows = 5
 cols = 12
 layers = 4
@@ -67,29 +64,38 @@ keys = """
 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12
 _ No lbrc @lcbr @rcbr No @circ @lprn @rprn rbrc @tild _
 _ @exlm @at @hash @dlr @perc @ampr mins eql bsls grv _
-_ lsft lctl lalt lgui No @astr @unds @plus @pipe slsh _
-_ _ _ _ bspc @adjust
+_ lctl lalt lgui lsft No @astr @unds @plus @pipe slsh _
+_ _ _ _ _ _
 """
 
 [[layer]]
 name = "lower"
 keys = """
 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12
-_ ins 1 2 3 mins home pgdn pgup end @coln _
-_ del 4 5 6 dot left down up right scln _
-_ caps 7 8 9 0 No rgui ralt rctl rsft _
-tab esc _ _ _ _
+_ ins 1 2 3 volu home pgdn pgup end @coln _
+_ del 4 5 6 vold left down up right scln _
+_ caps 7 8 9 0 No rsft rgui ralt rctl _
+_ _ _ _ _ _
 """
 
 [[layer]]
 name = "adjust"
 keys = """
 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12
-_ _ _ _ _ _ @bt0 @bt1 @bt2 @btclr @usbble _
-_ _ _ _ _ _ mnxt vold volu mply _ _
+_ @bt0 @bt1 @bt2 @btclr @usbble _ _ _ _ _ _
+_ vold volu mute _ _ _ mprv mply mnxt _ _
 _ _ _ _ _ _ _ _ _ _ _ _
 _ _ _ _ _ _
 """
+
+[behavior.tri_layer]
+upper = 1
+lower = 2
+adjust = 3
+
+[behavior.morse]
+enable_flow_tap = true
+hold_on_other_press = true
 
 [ble]
 enabled = true
@@ -104,8 +110,8 @@ row_offset = 0
 col_offset = 0
 
 [split.central.matrix]
-input_pins = ["P0_22", "P0_24", "P1_00", "P0_11", "P1_04"]
-output_pins = ["P0_02", "P1_15", "P1_13", "P1_11", "P0_10", "P0_09"]
+row_pins = ["P0_22", "P0_24", "P1_00", "P0_11", "P1_04"]
+col_pins = ["P0_02", "P1_15", "P1_13", "P1_11", "P0_10", "P0_09"]
 
 [[split.peripheral]]
 rows = 5
@@ -114,5 +120,5 @@ row_offset = 0
 col_offset = 6
 
 [split.peripheral.matrix]
-input_pins = ["P0_22", "P0_24", "P1_00", "P0_11", "P1_04"]
-output_pins = ["P0_09", "P0_10", "P1_11", "P1_13", "P1_15", "P0_02"]
+row_pins = ["P0_22", "P0_24", "P1_00", "P0_11", "P1_04"]
+col_pins = ["P0_09", "P0_10", "P1_11", "P1_13", "P1_15", "P0_02"]
